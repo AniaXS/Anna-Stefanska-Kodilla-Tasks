@@ -11,13 +11,4 @@ public class TaskDto {
     Long id;
     String title;
     String content;
-
-    @Override
-    public String toString() {
-        return "TaskDto{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", content='" + content + '\'' +
-                '}';
-    }
 }

@@ -1,6 +1,7 @@
 package com.crud.tasks.service;
 
 import com.crud.tasks.domain.Mail;
+import org.apache.commons.validator.routines.EmailValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,8 +31,10 @@ public class SimpleEmailService {
 
     private SimpleMailMessage createMailMessage(final Mail mail) {
         SimpleMailMessage mailMessage = new SimpleMailMessage();
-        mailMessage.setTo(mail.getMailTo());
-        if (mail.getToCc() != null) {
+        if(EmailValidator.getInstance().isValid(mail.getMailTo())) {
+            mailMessage.setTo(mail.getMailTo());
+        }
+        if (EmailValidator.getInstance().isValid(mail.getToCc())) {
             mailMessage.setCc(mail.getToCc());
         }
         mailMessage.setSubject(mail.getSubject());

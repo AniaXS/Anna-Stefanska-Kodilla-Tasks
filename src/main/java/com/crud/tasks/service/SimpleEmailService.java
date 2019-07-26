@@ -31,9 +31,10 @@ public class SimpleEmailService {
 
     private SimpleMailMessage createMailMessage(final Mail mail) {
         SimpleMailMessage mailMessage = new SimpleMailMessage();
-        if(EmailValidator.getInstance().isValid(mail.getMailTo())) {
-            mailMessage.setTo(mail.getMailTo());
+        if(!EmailValidator.getInstance().isValid(mail.getMailTo())) {
+            throw new RuntimeException("Please enter the correct email address");
         }
+        mailMessage.setTo(mail.getMailTo());
         if (EmailValidator.getInstance().isValid(mail.getToCc())) {
             mailMessage.setCc(mail.getToCc());
         }

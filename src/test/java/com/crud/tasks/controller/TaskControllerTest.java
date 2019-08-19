@@ -111,7 +111,8 @@ public class TaskControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id", is(1)))
                 .andExpect(jsonPath("$.title", is("New lists")))
-                .andExpect(jsonPath("$.content", is("Create new lists")));;
+                .andExpect(jsonPath("$.content", is("Create new lists")));
+        ;
     }
 
     @Test

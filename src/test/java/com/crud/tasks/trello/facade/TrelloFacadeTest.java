@@ -1,9 +1,6 @@
 package com.crud.tasks.trello.facade;
 
-import com.crud.tasks.domain.TrelloBoard;
-import com.crud.tasks.domain.TrelloBoardDto;
-import com.crud.tasks.domain.TrelloList;
-import com.crud.tasks.domain.TrelloListDto;
+import com.crud.tasks.domain.*;
 import com.crud.tasks.mapper.TrelloMapper;
 import com.crud.tasks.service.TrelloService;
 import com.crud.tasks.trello.validator.TrelloValidator;
@@ -100,5 +97,22 @@ public class TrelloFacadeTest {
                 assertEquals(false, trelloListDto.isClosed());
             });
         });
+    }
+
+    @Test
+    public void shouldCreateCard() {
+        //Given
+        TrelloCardDto trelloCardDto = new TrelloCardDto("Plural", "Plural Grammar Rules", "last", "13");
+        TrelloCard trelloCard = new TrelloCard("Plural", "Plural Grammar Rules", "last", "13");
+        CreatedTrelloCardDto createdTrelloCardDto = new CreatedTrelloCardDto("1", "Plural",
+                "http://test.com", new BadgesDto());
+        when(trelloMapper.mapToCard(trelloCardDto)).thenReturn(trelloCard);
+        when(trelloMapper.mapToCardDto(trelloCard)).thenReturn(trelloCardDto);
+        when(trelloFacade.createCard(trelloCardDto)).thenReturn(createdTrelloCardDto);
+        //When
+        CreatedTrelloCardDto result = trelloFacade.createCard(trelloCardDto);
+        //Then
+        assertEquals("Plural", result.getName());
+        assertEquals("http://test.com", result.getShortUrl());
     }
 }

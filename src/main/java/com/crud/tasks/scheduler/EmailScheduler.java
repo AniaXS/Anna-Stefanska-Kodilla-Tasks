@@ -2,6 +2,7 @@ package com.crud.tasks.scheduler;
 
 import com.crud.tasks.config.AdminConfig;
 import com.crud.tasks.domain.Mail;
+import com.crud.tasks.domain.Template;
 import com.crud.tasks.repository.TaskRepository;
 import com.crud.tasks.service.SimpleEmailService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,11 +23,11 @@ public class EmailScheduler {
     @Autowired
     private AdminConfig adminConfig;
 
-    @Scheduled(cron = "0 0 10 * * *")
-//    @Scheduled(fixedDelay = 10000)
+    //    @Scheduled(cron = "0 0 10 * * *")
+    @Scheduled(fixedDelay = 60000)
     public void sendInformationEmail() {
         long size = taskRepository.count();
         simpleEmailService.send(new Mail(adminConfig.getAdminMail(), SUBJECT,
-                "Currently in database you got " + size + ((size != 1) ? " tasks" : " task")));
+                "Currently in database you got " + size + ((size != 1) ? " tasks" : " task")), Template.SCHEDULED);
     }
 }

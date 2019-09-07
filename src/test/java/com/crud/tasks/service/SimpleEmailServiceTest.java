@@ -1,6 +1,7 @@
 package com.crud.tasks.service;
 
 import com.crud.tasks.domain.Mail;
+import com.crud.tasks.domain.Template;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -32,7 +33,7 @@ public class SimpleEmailServiceTest {
         mailMessage.setText(mail.getMessage());
 
         //When
-        simpleEmailService.send(mail);
+        simpleEmailService.send(mail, Template.NEW_CARD);
 
         //Then
 //        verify(javaMailSender, times(1)).send(mailMessage);
@@ -50,7 +51,7 @@ public class SimpleEmailServiceTest {
         mailMessage.setCc(mail.getToCc());
 
         //When
-        simpleEmailService.send(mail);
+        simpleEmailService.send(mail, Template.NEW_CARD);
 
         //Then
 //        verify(javaMailSender, times(1)).send(mailMessage);
